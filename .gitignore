@@ -18,8 +18,8 @@ scm-source.json
 *.iml
 
 # Gradle
-**/.gradle/
-**/build/
+.gradle/
+build/
 
 .DS_STORE
 

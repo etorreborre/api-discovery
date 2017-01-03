@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE')
+        classpath('com.github.ben-manes:gradle-versions-plugin:0.13.0')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'com.github.ben-manes.versions'
+
+jar {
+    baseName = 'twintip-storage'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.flywaydb:flyway-core:4.0.3')
+    compile('org.hsqldb:hsqldb:2.3.3')
+    compile('org.postgresql:postgresql:9.4-1206-jdbc42')
+    compile('org.zalando.stups:stups-spring-oauth2-server:1.0.15')
+    compile('org.zalando:twintip-spring-web:1.1.0')
+    compile('joda-time:joda-time:2.9.4')
+    compile('org.jadira.usertype:usertype.core:5.0.0.GA')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.4')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.assertj:assertj-core:3.5.2')
+    testCompile('org.apache.commons:commons-lang3:3.5')
+}
