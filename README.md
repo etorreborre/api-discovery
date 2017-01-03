@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/zalando-incubator/zally.svg?branch=master)](https://travis-ci.org/zalando-incubator/api-discovery)
+[![Build Status](https://travis-ci.org/zalando-incubator/api-discovery.svg?branch=master)](https://travis-ci.org/zalando-incubator/api-discovery)
 
 # API Discovery Solution for Microservice Architectures
 
