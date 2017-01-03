@@ -1,0 +1,1 @@
+DROP INDEX api_lifecycle_state_idx;

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagger UI</title>
+
+  <!-- remove env and /dist/ path for development
+  <script>
+    SUIENV_OAUTH_SCOPES='uid';
+    SUIENV_OAUTH_REALM='employees';
+    SUIENV_OAUTH_CLIENT_ID='stups_swagger';
+    SUIENV_OAUTH_AUTH_URL='http://localhost:5002/auth';
+    SUIENV_OAUTH_REDIRECT_URL='http://localhost:3000';
+    SUIENV_TWINTIP_BASE_URL='http://localhost:5001';
+    SUIENV_OAUTH_TOKENINFO_URL='http://localhost:5006/tokeninfo';
+  </script> -->
+  <script src="/dist/env.js"></script>
+  <link rel="icon" type="image/png" href="/dist/images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/dist/images/favicon-16x16.png" sizes="16x16" />
+  <link href='/dist/css/typography.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='/dist/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='/dist/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='/dist/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='/dist/css/print.css' media='print' rel='stylesheet' type='text/css'/>
+  <script src='/dist/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='/dist/lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='/dist/lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='/dist/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='/dist/lib/handlebars-2.0.0.js' type='text/javascript'></script>
+  <script src='/dist/lib/underscore-min.js' type='text/javascript'></script>
+  <script src='/dist/lib/backbone-min.js' type='text/javascript'></script>
+  <script src='/dist/lib/oauth2-client.js'></script>
+  <script src='/dist/swagger-ui.js' type='text/javascript'></script>
+  <script src='/dist/lib/highlight.7.3.pack.js' type='text/javascript'></script>
+  <script src='/dist/lib/marked.js' type='text/javascript'></script>
+  <script src='/dist/lib/swagger-oauth.js' type='text/javascript'></script>
+
+  <script type="text/javascript">
+    $(function () {
+      // this was there before, so it stays
+      function log() {
+        if ('console' in window) {
+          console.log.apply(console, arguments);
+        }
+      }
+      var url = window.location.search.match(/url=([^&]+)/);
+      if (url && url.length > 1) {
+        url = decodeURIComponent(url[1]);
+      } else {
+        url = window.SUIENV_TWINTIP_BASE_URL + '/swagger.json';
+      }
+
+      window.OAuthProvider = new window['oauth2-client-js'].Provider({
+        id: 'swagger',
+        authorization_url: window.SUIENV_OAUTH_AUTH_URL
+      });
+
+      function requestToken() {
+        var request = new window['oauth2-client-js'].Request({
+          client_id: window.SUIENV_OAUTH_CLIENT_ID,
+          redirect_uri: window.SUIENV_OAUTH_REDIRECT_URL,
+          scopes: window.SUIENV_OAUTH_SCOPES
+        });
+        OAuthProvider.remember(request);
+        window.location.href = OAuthProvider.requestToken(request);
+      }
+
+      // do we have a response from auth server?
+      // check if we can parse the url fragment
+      if (window.location.hash.length) {
+        var response;
+        try {
+          response = OAuthProvider.parse(window.location.hash);
+        } catch(err) {
+          if (response instanceof Error) {
+            return console.error(response);
+          }
+        }
+      }
+
+      if (!OAuthProvider.hasAccessToken()) {
+        requestToken();
+      }
+
+      // check validity of token
+      $.ajax({
+        url: '/tokeninfo?access_token=' + OAuthProvider.getAccessToken(),
+        type: 'GET',
+        dataType: 'json',
+        error: function() {
+          console.error(arguments);
+          requestToken(); // get new token if tokeninfo returns error
+        }
+      });
+
+      // just wrap this part also in a function
+      function initSwagger(url) {
+        window.swaggerUi = new SwaggerUi({
+          url: url,
+          dom_id: "swagger-ui-container",
+          supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+          onComplete: function(swaggerApi, swaggerUi){
+            if(typeof initOAuth == "function") {
+              initOAuth({
+                clientId: window.SUIENV_OAUTH_CLIENT_ID,
+                realm: window.SUIENV_OAUTH_REALM,
+                appName: 'swagger'
+              });
+            }
+            $('pre code').each(function(i, e) {
+              hljs.highlightBlock(e)
+            });
+          },
+          onFailure: function(data) {
+            log("Unable to Load SwaggerUI");
+          },
+          docExpansion: "none",
+          sorter : "alpha"
+        });
+        window.swaggerUi.api = new SwaggerClient({ url: this.url });
+        window.swaggerUi.api.clientAuthorizations.add('myoauth2',
+            new SwaggerClient.ApiKeyAuthorization('Authorization', 'Bearer ' + OAuthProvider.getAccessToken(), 'header'));
+        window.swaggerUi.load();
+      }
+
+      function addApiKeyAuthorization(){
+        var key = encodeURIComponent($('#input_apiKey')[0].value);
+        if(key && key.trim() != "") {
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("api_key", key, "query");
+            window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
+            log("added key " + key);
+        }
+      }
+
+    function populateApisInSelectbox(apis) {
+      var $select = $('#input_baseUrl');
+
+      apis.forEach(function(api) {
+        var $option = $('<option />');
+        $option.attr('value', api.application_id);
+        $option.text(api.name + ' (' + api.application_id + ')');
+        $select.append($option);
+      });
+    }
+
+    function setOAuthHeader(xhr) {
+      xhr.setRequestHeader('Authorization', 'Bearer ' + OAuthProvider.getAccessToken());
+    }
+
+    function initWithFirstOf(apis) {
+      if (!apis.length) {
+        return initSwagger(window.SUIENV_TWINTIP_BASE_URL + '/swagger.json');
+      } else {
+        return initSwagger(window.SUIENV_TWINTIP_BASE_URL + '/apps/' + apis[0].application_id + '/definition');
+      }
+    }
+
+    $.ajax({
+      url: window.SUIENV_TWINTIP_BASE_URL + '/apps?lifecycle_state=active',
+      type: 'GET',
+      dataType: 'json',
+      beforeSend: setOAuthHeader,
+      error: console.error.bind(console),
+      success: function(apis) {
+        var usableApis = apis
+                        .filter(function(api) {
+                          return api.status === 'SUCCESS';
+                        })
+                        .sort(function(a, b) {
+                          var an = (a.name || a.application_id).toLowerCase(),
+                              bn = (b.name || b.application_id).toLowerCase();
+                          return an < bn ? -1 :
+                                  bn < an ? 1 :
+                                    0;
+                        });
+        populateApisInSelectbox(usableApis);
+        initWithFirstOf(usableApis);
+      }
+    });
+  });
+  </script>
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+  <div class="swagger-ui-wrap">
+    <a id="logo" href="http://swagger.io">swagger</a>
+    <form id='api_selector'>
+      <div class='input'>
+        <label for="input_baseUrl">Select an API:</label>
+        <select id="input_baseUrl" name="baseUrl">
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+</body>
+</html>

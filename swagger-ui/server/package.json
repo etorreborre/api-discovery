@@ -1,0 +1,15 @@
+{
+  "name": "swagger-ui-server",
+  "author": "Nikolaus Piccolotto <nikolaus.piccolotto@zalando.de>",
+  "version": "2.1.5-M2",
+  "license": "Apache 2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zalando-stups/swagger-ui.git"
+  },
+  "dependencies": {
+    "superagent": "1.8.3",
+    "express": "4.13.4",
+    "winston": "2.2.0"
+  }
+}

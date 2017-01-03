@@ -1,0 +1,22 @@
+tokens:
+  access-token-uri: https://token.services.auth.zalando.com/oauth2/access_token?realm=/services
+  credentials-directory: ${user.dir}/meta/credentials
+  token-info-uri: https://info.services.auth.zalando.com/oauth2/tokeninfo
+  token-configuration-list:
+   - token-id: kio
+     scopes:
+      - uid
+   - token-id: twintip
+     scopes:
+      - uid
+      - application.write_all
+   - token-id: schema
+     scopes:
+      - uid
+
+crawler.delay: 300000 # every 5 minutes
+crawler.jobs.pool: 10
+
+crawler.timeout.read: 5000
+crawler.timeout.connect: 2000
+crawler.timeout.connection-request: 1000

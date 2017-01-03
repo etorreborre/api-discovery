@@ -1,0 +1,28 @@
+twintip:
+  mapping: /api
+  yaml: "classpath:/api/twintip-api.yaml"
+
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:twintip;sql.syntax_pgs=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+
+security:
+  basic:
+    enabled: false
+
+lifecycle-check.delay: 300000
+
+inactive.time: 600
+decommissioned.time: 3600

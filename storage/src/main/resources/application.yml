@@ -1,0 +1,34 @@
+twintip:
+  mapping: /api
+  yaml: "classpath:/api/twintip-api.yaml"
+
+spring:
+  profiles:
+    active: production
+  datasource:
+    url: jdbc:hsqldb:mem:twintip;sql.syntax_pgs=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  oauth2:
+    resource:
+      tokenInfoUri: "https://info.services.auth.zalando.com/oauth2/tokeninfo"
+
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+    sensitive: false
+
+security:
+  basic:
+    enabled: false
+
+lifecycle-check.delay: 300000
+
+inactive.time: 600
+decommissioned.time: 3600

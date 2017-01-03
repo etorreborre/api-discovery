@@ -1,0 +1,257 @@
+swagger: '2.0'
+
+# basic meta information
+info:
+  title: TWINTIP Storage API
+  version: '0.1'
+  description: TWINTIP is STUPS' API definition crawler.
+
+externalDocs:
+  description: STUPS overview
+  url: http://zalando-stups.github.io/
+
+# technical configuration
+basePath: /
+produces:
+- application/json
+consumes:
+- application/json
+
+security:
+  - oauth2: [uid]
+
+paths:
+
+  '/apps':
+    get:
+      summary: list crawled APIs
+      description: |
+        Lists all crawled APIs.
+      tags:
+        - APIs
+      operationId: 'org.zalando.stups.twintip.storage.api/read-apis'
+      parameters:
+        - name: lifecycle_state
+          in: query
+          description: "Filter APIs by lifecycle state: active, inactive or decommissioned"
+          required: false
+          type: string
+      responses:
+        200:
+          description: List of all APIs
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                application_id:
+                  type: string
+                  description: Unique identifier of the application
+                  example: kio
+                status:
+                  type: string
+                  description: The current status of the crawling
+                  example: SUCCESS
+                lifecycle_state:
+                  type: string
+                  description: The lifecycle state of API
+                  example: ACTIVE
+                name:
+                  type: string
+                  description: Name of the API
+                  example: Kio API
+                version:
+                  type: string
+                  description: Version of the API
+                  example: "1.0"
+              required:
+                - application_id
+                - status
+                - name
+                - version
+        default:
+          $ref: '#/responses/Error'
+
+  '/apps/{application_id}':
+    get:
+      summary: read API
+      description: |
+        Returns details about one API
+      tags:
+      - APIs
+      operationId: 'org.zalando.stups.twintip.storage.api/read-api'
+      parameters:
+      - $ref: '#/parameters/ApplicationID'
+      responses:
+        200:
+          description: Details of one API
+          schema:
+            type: object
+            properties:
+              application_id:
+                type: string
+                description: Unique identifier of the application
+                example: kio
+              status:
+                type: string
+                description: The current status of the crawling
+                example: SUCCESS
+              lifecycle_state:
+                type: string
+                description: The lifecycle state of API
+                example: ACTIVE
+              type:
+                type: string
+                description: Type of API definition
+                example: SWAGGER-2.0
+              name:
+                type: string
+                description: Name of the API
+                example: Kio API
+              version:
+                type: string
+                description: Version of the API
+                example: "1.0"
+              service_url:
+                type: string
+                description: URL pointing to the service who is providing the API
+                example: https://kio.example.com
+              url:
+                type: string
+                description: URL pointing to the API definition file
+                example: https://kio.example.com/swagger.json
+              ui:
+                type: string
+                description: URL pointing to the UI for browsing the API
+                example: https://kio.example.com/ui/
+              definition:
+                type: string
+                description: The API definition
+                example: |
+                  {"swagger": "2.0"
+                   "foo": "bar"}
+              created:
+                type: dateTime
+                description: Time when this api definition was created
+              last_changed:
+                type: dateTime
+                description: Time when this api definition was updated
+              last_persisted:
+                type: dateTime
+                description: Time when this api definition was updated regardless if it was changed
+        404:
+          description: Not found
+        default:
+          $ref: '#/responses/Error'
+
+    put:
+      summary: create or update API
+      description: |
+        Creates or updates an API.
+      tags:
+      - APIs
+      operationId: "org.zalando.stups.twintip.storage.api/create-or-update-api!"
+      security:
+        - oauth2:
+          - uid
+          - application.write_all
+      parameters:
+      - $ref: '#/parameters/ApplicationID'
+      - name: apidef
+        in: body
+        description: API details that will be saved.
+        schema:
+          $ref: '#/definitions/UpdateAPI'
+        required: true
+      responses:
+        201:
+          description: API was saved.
+        default:
+          $ref: '#/responses/Error'
+
+  '/apps/{application_id}/definition':
+    get:
+      summary: read API definition
+      description: |
+        Returns crawled OpenAPI definition of one API
+      tags:
+      - APIs
+      operationId: 'org.zalando.stups.twintip.storage.api/read-api-definition'
+      parameters:
+      - $ref: '#/parameters/ApplicationID'
+      responses:
+        200:
+          description: OpenAPI definition of one API
+          schema:
+            type: object
+
+# definitions
+
+parameters:
+  ApplicationID:
+    name: application_id
+    in: path
+    type: string
+    description: ID of the application
+    required: true
+
+responses:
+  Error:
+    description: An error occured.
+    schema:
+      $ref: '#/definitions/Error'
+
+definitions:
+  UpdateAPI:
+    type: object
+    properties:
+      status:
+        type: string
+        description: The current status of the crawling
+        example: SUCCESS
+      type:
+        type: string
+        description: Type of API definition
+        example: SWAGGER-2.0
+      name:
+        type: string
+        description: Name of the API
+        example: Kio API
+      version:
+        type: string
+        description: Version of the API
+        example: "1.0"
+      service_url:
+        type: string
+        description: URL pointing to the service who is providing the API
+        example: https://kio.example.com
+      url:
+        type: string
+        description: URL pointing to the API definition file
+        example: https://kio.example.com/swagger.json
+      ui:
+        type: string
+        description: URL pointing to the UI for browsing the API
+        example: https://kio.example.com/ui/
+      definition:
+        type: string
+        description: The API definition
+        example: |
+          {"swagger": "2.0"
+           "foo": "bar"}
+    required:
+      - status
+
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+
+securityDefinitions:
+  oauth2:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: https://example.com/oauth2/dialog
+    scopes:
+      uid: Unique identifier of the user accessing the service.

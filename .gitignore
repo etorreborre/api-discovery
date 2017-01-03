@@ -10,3 +10,18 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+scm-source.json
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Gradle
+**/.gradle/
+**/build/
+
+.DS_STORE
+
+node_modules/
+dist/

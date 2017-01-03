@@ -1,0 +1,1 @@
+ALTER TABLE api ADD COLUMN service_url TEXT;
