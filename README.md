@@ -26,7 +26,7 @@ IMPORTANT: Currently the crawler is still depending on an application registry, 
 
 Please refer to individual installation instructions of sub-projects for more detailed information and configuration parameters.
 
-- TODO add build script to automatically build projects, docker images and start docker compose
+- TODO add build script to automatically build projects, docker images and start docker compose (see [#8](https://github.com/zalando-incubator/api-discovery/issues/8))
 
 
 ### Contributing
