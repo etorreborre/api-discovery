@@ -20,16 +20,16 @@ In Microservice architectures many services and APIs are built. Over time it bec
 
 The crawler constantly fetches a list of all available services from an application registry
 - currently [Kio](https://github.com/zalando-stups/kio) - and then tries to retrieve an API definition per service. For that,
-it first crawls ´/.well-known/schema-discovery´ which should respond with payload like:
+it first crawls `/.well-known/schema-discovery` which should respond with payload like:
 
-´javascript
+`javascript
 {
     "schema_url": "/swagger.json",
     "schema_type": "swagger-2.0",
     "ui_url": "/ui/"
-}´
+}`
 
-where ´schema_url´ points to an API definition endpoint. The API definition can be provided either in JSON or YAML format.
+where `schema_url` points to an API definition endpoint. The API definition can be provided either in JSON or YAML format.
 After the crawler loaded the definition it tries to store it in the [storage](storage/) system. An adapted
 [Swagger UI](swagger-ui/) displays all API definition which were stored in this storage system.
 
