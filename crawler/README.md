@@ -15,6 +15,8 @@ for other integration scenarios.
 
 Configuration is provided via environment variables during start.
 
+Bold means mandatory, rest is optional.
+
 Variable                           | Default | Description
 ---------------------------------- | ------- | -----------
 **JOBS_KIO_URL**                   |         | **Base url of Kio**
