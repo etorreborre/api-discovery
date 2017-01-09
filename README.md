@@ -32,7 +32,7 @@ For that, it first crawls `/.well-known/schema-discovery` which should respond w
 
 `schema_url` points to an API definition endpoint. The API definition can be provided either in JSON or YAML format.
 After the crawler loaded the definition it tries to store it in the [storage](storage/) system. An adapted
-[Swagger UI](swagger-ui/) displays all API definition which were stored in this storage system.
+[Swagger UI](swagger-ui/) displays all API definitions which were stored in this storage system.
 
 
 ### Dependencies
