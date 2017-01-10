@@ -7,7 +7,7 @@ You can find the API definition of this storage system [here](src/main/resources
 
 ## Building
 
-    $ gradle build
+    $ ./gradlew build
 
 
 ## Configuration

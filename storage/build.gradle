@@ -17,6 +17,10 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'com.github.ben-manes.versions'
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}
+
 jar {
     baseName = 'storage'
 }
