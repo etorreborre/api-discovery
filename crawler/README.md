@@ -8,7 +8,7 @@ for other integration scenarios.
 
 ## Building
 
-    $ gradle build
+    $ ./gradlew build
 
 
 ## Configuration
