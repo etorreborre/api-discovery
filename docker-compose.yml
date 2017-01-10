@@ -1,0 +1,27 @@
+version: '2'
+services:
+  swagger-ui:
+    build: ./swagger-ui
+    ports:
+    - "8080:8080"
+    depends_on:
+    - storage
+    links:
+    - storage:storage.local
+  storage:
+    build: ./storage
+    ports:
+    - "8010:8080"
+    environment:
+    - SPRING_PROFILES_ACTIVE=docker-compose
+    depends_on:
+    - postgres
+    links:
+    - postgres:postgres.local
+  postgres:
+    image: postgres:9.6
+    environment:
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=apis
+    ports:
+    - "54321:5432"

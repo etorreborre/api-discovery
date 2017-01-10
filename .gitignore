@@ -20,6 +20,9 @@ scm-source.json
 # Gradle
 .gradle/
 build/
+gradle/
+gradlew
+gradlew.bat
 
 .DS_STORE
 

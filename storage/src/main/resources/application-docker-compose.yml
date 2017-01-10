@@ -1,0 +1,28 @@
+twintip:
+  mapping: /api
+  yaml: "classpath:/api/storage-api.yaml"
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres.local:5432/apis
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+  metrics:
+    enabled: true
+
+security:
+  basic:
+    enabled: false
+
+lifecycle-check.delay: 300000
+
+inactive.time: 600
+decommissioned.time: 3600
