@@ -1,12 +1,12 @@
 twintip:
   mapping: /api
-  yaml: "classpath:/api/twintip-api.yaml"
+  yaml: "classpath:/api/storage-api.yaml"
 
 spring:
   profiles:
     active: production
   datasource:
-    url: jdbc:hsqldb:mem:twintip;sql.syntax_pgs=true
+    url: jdbc:hsqldb:mem:storage;sql.syntax_pgs=true
     username: sa
     password:
   jpa:

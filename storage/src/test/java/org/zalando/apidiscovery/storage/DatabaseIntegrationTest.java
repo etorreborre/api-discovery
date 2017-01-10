@@ -1,5 +1,6 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
+import org.assertj.core.api.Assertions;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createBasicApiDefinition;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createInactiveApiDefinition;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createUnsuccessfulApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createBasicApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createInactiveApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createUnsuccessfulApiDefinition;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -78,7 +79,7 @@ public class DatabaseIntegrationTest {
         repository.save(createUnsuccessfulApiDefinition());
 
         List<ApiDefinition> foundApi = repository.findOlderThanAndUnsuccessful(DateTime.now().minusSeconds(5));
-        assertThat(foundApi).containsOnly(apiDefinition);
+        Assertions.assertThat(foundApi).containsOnly(apiDefinition);
     }
 
     @Test
@@ -91,7 +92,7 @@ public class DatabaseIntegrationTest {
         repository.save(createUnsuccessfulApiDefinition());
 
         List<ApiDefinition> foundApi = repository.findOlderThanAndUnsuccessful(DateTime.now().minusSeconds(10));
-        assertThat(foundApi).containsOnly(apiDefinition);
+        Assertions.assertThat(foundApi).containsOnly(apiDefinition);
     }
 
     @Test
@@ -108,7 +109,7 @@ public class DatabaseIntegrationTest {
         repository.save(createUnsuccessfulApiDefinition());
 
         List<ApiDefinition> foundApi = repository.findNotUpdatedSince(DateTime.now().minusSeconds(5));
-        assertThat(foundApi).containsOnly(apiDefinition, apiDefinitionWithNullLastPersisted);
+        Assertions.assertThat(foundApi).containsOnly(apiDefinition, apiDefinitionWithNullLastPersisted);
     }
 
     @Test
@@ -125,6 +126,6 @@ public class DatabaseIntegrationTest {
         repository.save(createUnsuccessfulApiDefinition());
 
         List<ApiDefinition> foundApi = repository.findNotUpdatedSince(DateTime.now().minusSeconds(5));
-        assertThat(foundApi).containsOnly(apiDefinition, apiDefinitionWithNullLastPersisted);
+        Assertions.assertThat(foundApi).containsOnly(apiDefinition, apiDefinitionWithNullLastPersisted);
     }
 }

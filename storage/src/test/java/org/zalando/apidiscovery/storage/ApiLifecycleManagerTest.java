@@ -1,10 +1,8 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 

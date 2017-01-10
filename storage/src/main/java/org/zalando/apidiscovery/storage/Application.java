@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

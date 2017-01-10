@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

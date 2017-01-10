@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.joda.time.DateTime;
@@ -17,9 +17,9 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createBasicApiDefinition;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createDecommissionedApiDefinition;
-import static org.zalando.stups.twintip.storage.TestDataHelper.createInactiveApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createBasicApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createDecommissionedApiDefinition;
+import static org.zalando.apidiscovery.storage.TestDataHelper.createInactiveApiDefinition;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)

@@ -2,9 +2,9 @@ swagger: '2.0'
 
 # basic meta information
 info:
-  title: TWINTIP Storage API
+  title: API Discovery Storage API
   version: '0.1'
-  description: TWINTIP is STUPS' API definition crawler.
+  description: This is the storage API of API Discovery Solution which crawls all available APIs and offers ease UI access to them.
 
 externalDocs:
   description: STUPS overview
@@ -29,7 +29,7 @@ paths:
         Lists all crawled APIs.
       tags:
         - APIs
-      operationId: 'org.zalando.stups.twintip.storage.api/read-apis'
+      operationId: 'org.zalando.apidiscovery.storage.api/read-apis'
       parameters:
         - name: lifecycle_state
           in: query
@@ -79,7 +79,7 @@ paths:
         Returns details about one API
       tags:
       - APIs
-      operationId: 'org.zalando.stups.twintip.storage.api/read-api'
+      operationId: 'org.zalando.apidiscovery.storage.api/read-api'
       parameters:
       - $ref: '#/parameters/ApplicationID'
       responses:
@@ -150,7 +150,7 @@ paths:
         Creates or updates an API.
       tags:
       - APIs
-      operationId: "org.zalando.stups.twintip.storage.api/create-or-update-api!"
+      operationId: "org.zalando.apidiscovery.storage.api/create-or-update-api!"
       security:
         - oauth2:
           - uid
@@ -176,7 +176,7 @@ paths:
         Returns crawled OpenAPI definition of one API
       tags:
       - APIs
-      operationId: 'org.zalando.stups.twintip.storage.api/read-api-definition'
+      operationId: 'org.zalando.apidiscovery.storage.api/read-api-definition'
       parameters:
       - $ref: '#/parameters/ApplicationID'
       responses:

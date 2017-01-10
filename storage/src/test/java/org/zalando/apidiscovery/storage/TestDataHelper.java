@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.storage;
+package org.zalando.apidiscovery.storage;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.joda.time.DateTime;
