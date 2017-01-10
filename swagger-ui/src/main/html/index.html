@@ -10,7 +10,7 @@
     SUIENV_OAUTH_CLIENT_ID='stups_swagger';
     SUIENV_OAUTH_AUTH_URL='http://localhost:5002/auth';
     SUIENV_OAUTH_REDIRECT_URL='http://localhost:3000';
-    SUIENV_TWINTIP_BASE_URL='http://localhost:5001';
+    SUIENV_STORAGE_BASE_URL='http://localhost:5001';
     SUIENV_OAUTH_TOKENINFO_URL='http://localhost:5006/tokeninfo';
   </script> -->
   <script src="/dist/env.js"></script>
@@ -46,7 +46,7 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-        url = window.SUIENV_TWINTIP_BASE_URL + '/swagger.json';
+        url = window.SUIENV_STORAGE_BASE_URL + '/swagger.json';
       }
 
       window.OAuthProvider = new window['oauth2-client-js'].Provider({
@@ -148,14 +148,14 @@
 
     function initWithFirstOf(apis) {
       if (!apis.length) {
-        return initSwagger(window.SUIENV_TWINTIP_BASE_URL + '/swagger.json');
+        return initSwagger(window.SUIENV_STORAGE_BASE_URL + '/swagger.json');
       } else {
-        return initSwagger(window.SUIENV_TWINTIP_BASE_URL + '/apps/' + apis[0].application_id + '/definition');
+        return initSwagger(window.SUIENV_STORAGE_BASE_URL + '/apps/' + apis[0].application_id + '/definition');
       }
     }
 
     $.ajax({
-      url: window.SUIENV_TWINTIP_BASE_URL + '/apps?lifecycle_state=active',
+      url: window.SUIENV_STORAGE_BASE_URL + '/apps?lifecycle_state=active',
       type: 'GET',
       dataType: 'json',
       beforeSend: setOAuthHeader,

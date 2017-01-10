@@ -25,7 +25,7 @@ SwaggerUi.Views.HeaderView = Backbone.View.extend({
   loadDefinition: function(e) {
     var app_id = $(e.target).children(':selected').val();
     this.trigger('update-swagger-ui', {
-      url: window.SUIENV_TWINTIP_BASE_URL + '/apps/' + app_id + '/definition'
+      url: window.SUIENV_STORAGE_BASE_URL + '/apps/' + app_id + '/definition'
     });
   },
 
