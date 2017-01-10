@@ -6,7 +6,7 @@ tokens:
    - token-id: kio
      scopes:
       - uid
-   - token-id: twintip
+   - token-id: storage
      scopes:
       - uid
       - application.write_all

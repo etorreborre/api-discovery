@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler;
+package org.zalando.apidiscovery.crawler;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

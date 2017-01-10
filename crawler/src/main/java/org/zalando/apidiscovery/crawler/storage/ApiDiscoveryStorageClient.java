@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler.storage;
+package org.zalando.apidiscovery.crawler.storage;
 
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestOperations;
@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class RestTemplateTwintipOperations {
+public class ApiDiscoveryStorageClient {
 
     private final RestOperations restOperations;
     private final String baseUrl;
 
-    public RestTemplateTwintipOperations(RestOperations restOperations, String baseUrl) {
+    public ApiDiscoveryStorageClient(RestOperations restOperations, String baseUrl) {
         this.restOperations = restOperations;
         this.baseUrl = baseUrl;
     }

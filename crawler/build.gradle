@@ -16,7 +16,7 @@ apply plugin: 'spring-boot'
 apply plugin: 'com.github.ben-manes.versions'
 
 jar {
-    baseName = 'twintip-crawler'
+    baseName = 'crawler'
 }
 
 repositories {

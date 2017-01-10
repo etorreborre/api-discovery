@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler;
+package org.zalando.apidiscovery.crawler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

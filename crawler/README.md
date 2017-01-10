@@ -19,8 +19,8 @@ Bold means mandatory, rest is optional.
 
 Variable                           | Default | Description
 ---------------------------------- | ------- | -----------
-**JOBS_KIO_URL**                   |         | **Base url of Kio**
-**JOBS_TWINTIP_STORAGE_URL**       |         | **Base url of Twintip storage**
+**KIO_URL**                   |         | **Base url of Kio**
+**STORAGE_URL**       |         | **Base url of API Discovery storage system**
 OAUTH2_ACCESS_TOKEN_URL            |         | Needed for authentication
 CRAWLER_DELAY                      |  300000 | Delay of scheduled crawling task in ms
 CRAWLER_JOBS                       |      10 | Number of concurrent crawling jobs

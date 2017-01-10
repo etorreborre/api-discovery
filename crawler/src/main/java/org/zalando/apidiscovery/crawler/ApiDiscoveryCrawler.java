@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler;
+package org.zalando.apidiscovery.crawler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
+import org.zalando.apidiscovery.crawler.storage.ApiDiscoveryStorageClient;
 import org.zalando.stups.clients.kio.ApplicationBase;
 import org.zalando.stups.clients.kio.KioOperations;
-import org.zalando.stups.twintip.crawler.storage.RestTemplateTwintipOperations;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -21,22 +21,22 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Component
-public class TwintipCrawler {
+public class ApiDiscoveryCrawler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TwintipCrawler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ApiDiscoveryCrawler.class);
 
     private final KioOperations kioClient;
-    private final RestTemplateTwintipOperations twintipClient;
+    private final ApiDiscoveryStorageClient storageClient;
     private final RestOperations schemaClient;
     private final ExecutorService fixedPool;
 
     @Autowired
-    public TwintipCrawler(KioOperations kioClient,
-                          RestTemplateTwintipOperations twintipClient,
-                          RestOperations schemaClient,
-                          @Value("${crawler.jobs.pool}") int jobsPoolSize) {
+    public ApiDiscoveryCrawler(KioOperations kioClient,
+                               ApiDiscoveryStorageClient storageClient,
+                               RestOperations schemaClient,
+                               @Value("${crawler.jobs.pool}") int jobsPoolSize) {
         this.kioClient = kioClient;
-        this.twintipClient = twintipClient;
+        this.storageClient = storageClient;
         this.schemaClient = schemaClient;
         fixedPool = Executors.newFixedThreadPool(jobsPoolSize);
     }
@@ -50,7 +50,7 @@ public class TwintipCrawler {
 
         final List<Callable<Void>> crawlJobs = applications.stream()
                 .filter(app -> !StringUtils.isEmpty(app.getServiceUrl()))
-                .map(app -> new ApiDefinitionCrawlJob(twintipClient, schemaClient, app))
+                .map(app -> new ApiDefinitionCrawlJob(storageClient, schemaClient, app))
                 .collect(Collectors.toList());
         LOG.info("Crawling {} api definitions", crawlJobs.size());
 

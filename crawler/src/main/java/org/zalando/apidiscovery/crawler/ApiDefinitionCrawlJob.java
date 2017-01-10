@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler;
+package org.zalando.apidiscovery.crawler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,8 +13,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestOperations;
 import org.zalando.stups.clients.kio.ApplicationBase;
-import org.zalando.stups.twintip.crawler.storage.ApiDefinition;
-import org.zalando.stups.twintip.crawler.storage.RestTemplateTwintipOperations;
+import org.zalando.apidiscovery.crawler.storage.ApiDefinition;
+import org.zalando.apidiscovery.crawler.storage.ApiDiscoveryStorageClient;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -25,12 +25,12 @@ class ApiDefinitionCrawlJob implements Callable<Void> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ApiDefinitionCrawlJob.class);
 
-    private final RestTemplateTwintipOperations twintipClient;
+    private final ApiDiscoveryStorageClient storageClient;
     private final RestOperations schemaClient;
     private final ApplicationBase app;
 
-    ApiDefinitionCrawlJob(RestTemplateTwintipOperations twintipClient, RestOperations schemaClient, ApplicationBase app) {
-        this.twintipClient = twintipClient;
+    ApiDefinitionCrawlJob(ApiDiscoveryStorageClient storageClient, RestOperations schemaClient, ApplicationBase app) {
+        this.storageClient = storageClient;
         this.schemaClient = schemaClient;
         this.app = app;
     }
@@ -62,15 +62,15 @@ class ApiDefinitionCrawlJob implements Callable<Void> {
                         apiDefinition.toString()
                 );
 
-                twintipClient.createOrUpdateApiDefintion(updateApiDefinitionRequest, app.getId());
+                storageClient.createOrUpdateApiDefintion(updateApiDefinitionRequest, app.getId());
                 LOG.info("Successfully crawled api definition of {}", app.getId());
             } else {
-                twintipClient.createOrUpdateApiDefintion(ApiDefinition.UNSUCCESSFUL, app.getId());
+                storageClient.createOrUpdateApiDefintion(ApiDefinition.UNSUCCESSFUL, app.getId());
                 LOG.info("Api definition unavailable for {}", app.getId());
             }
             return null;
         } catch (Exception e) {
-            twintipClient.createOrUpdateApiDefintion(ApiDefinition.UNSUCCESSFUL, app.getId());
+            storageClient.createOrUpdateApiDefintion(ApiDefinition.UNSUCCESSFUL, app.getId());
             LOG.info("Could not crawl {}: {}", app.getId(), e.getMessage());
             return null;
         }

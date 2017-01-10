@@ -1,4 +1,4 @@
-package org.zalando.stups.twintip.crawler.storage;
+package org.zalando.apidiscovery.crawler.storage;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
