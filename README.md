@@ -52,6 +52,8 @@ Please refer to individual installation instructions of sub-projects for more de
 
 We are happy to accept contributions. First, take a look at our [contributing guidelines](CONTRIBUTING.md).
 
+You can see our current status in [this task board](https://github.com/zalando-incubator/api-discovery/projects/1).
+
 
 ### TODO
 
