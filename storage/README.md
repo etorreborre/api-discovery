@@ -12,9 +12,9 @@ You can find the API definition of this storage system [here](src/main/resources
 
 ## Configuration
 
-Configuration is provided via environment variables during start.
-
-Bold means mandatory, rest is optional.
+Configuration is provided via environment variables during start. Per default all endpoints are OAuth2 protected.
+You can disable this by providing `SPRING_PROFILES_ACTIVE = dev` as environment variable. This will also enable
+an in-memory database which you can override by `SPRING_DATASOURCE_URL` parameter.
 
 Variable                            | Default                                     | Description
 ----------------------------------- | ------------------------------------------- | -----------
