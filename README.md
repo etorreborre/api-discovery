@@ -35,6 +35,13 @@ After the crawler loaded the definition it tries to store it in the [storage](st
 [Swagger UI](swagger-ui/) displays all API definitions which were stored in this storage system.
 
 
+### Features
+
+- Auto-discovery of your APIs
+- Basic UI support for auto-discovered APIs
+- API Lifecycle Management Support (see [storage](storage/) for more information)
+
+
 ### Dependencies
 
 - Java 8
@@ -63,7 +70,7 @@ for contribution ideas.
 
 ### Contact
 
-Feel free to contact one the [maintainers](MAINTAINERS)
+Feel free to contact one of the [maintainers](MAINTAINERS).
 
 
 ### License
