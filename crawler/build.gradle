@@ -6,7 +6,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE')
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE')
         classpath('com.github.ben-manes:gradle-versions-plugin:0.13.0')
     }
 }
@@ -33,10 +33,10 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter')
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile('org.apache.httpcomponents:httpclient:4.5.1')
-    compile('org.zalando.stups:stups-spring-oauth2-client:1.0.15')
+    compile('org.zalando.stups:stups-spring-oauth2-client:1.0.16')
     compile('org.zalando.stups:spring-boot-zalando-stups-tokens:0.9.11')
     compile('org.zalando.stups:kio-client-java-spring:0.11.1')
-    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.4')
+    compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.6')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('org.assertj:assertj-core:3.5.2')
+    testCompile('org.assertj:assertj-core:3.6.1')
 }
