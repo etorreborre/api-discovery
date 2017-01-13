@@ -44,7 +44,7 @@ class ApiDefinitionController {
             LOG.info("Retrieved all api definitions");
         } else {
             repository.findByLifecycleState(lifecycleState.toUpperCase()).forEach(d -> definitions.add(new ApiDefinitionListDto(d)));
-            LOG.info("Retrieved all api definitions with lifecycle state ${}", lifecycleState);
+            LOG.info("Retrieved all api definitions with lifecycle state {}", lifecycleState);
         }
 
         return definitions;
