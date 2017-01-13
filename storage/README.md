@@ -7,7 +7,7 @@ You can find the API definition of this storage system [here](src/main/resources
 This storage system also implements automatic API lifecycle management: if an API definition could
 not be crawled for a configured amount of time it will be marked as inactive. If an inactive API
 could not be crawled for an even longer configured amount of time it will be marked as decommissioned.
-All of thos lifecycle states of an API are accessible via the [storage api](src/main/resources/api/storage-api.yaml).
+All of these lifecycle states of an API are accessible via the [storage api](src/main/resources/api/storage-api.yaml).
 
 
 ## Building
