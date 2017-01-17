@@ -47,10 +47,24 @@ After the crawler loaded the definition it tries to store it in the [storage](st
 - Java 8
 - NPM
 
-
 ### Installation
 
 Please refer to individual installation instructions of sub-projects for more detailed information and configuration parameters.
+
+
+### Run locally
+
+You can start the whole stack (Swagger UI and Strorage incl. PostgreSQL DB) locally by building the respective sub-projects and running:
+```
+docker-compose up --build
+```
+
+Swagger UI is accessible on <http://localhost:8080>. You can also access Storage API <http://localhost:8010/apps> and PostgreSQL database <postgresql://localhost:54321/apis> directly.
+
+If your docker host is not your localhost (e.g. MacOS), replace localhost in the link with the docker machine IP address:
+```bash
+docker-machine ip ${machine_name}
+```
 
 - TODO add build script to automatically build projects, docker images and start docker compose (see [#8](https://github.com/zalando-incubator/api-discovery/issues/8))
 
