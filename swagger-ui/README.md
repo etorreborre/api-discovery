@@ -5,7 +5,13 @@ This is Swagger UI application. It is currently used to browse the API definitio
 
 ## Build and run locally
 
-In order to start the application locally (e.g. testing or development purposes) you should build the docker image first:
+In order to start the application locally (e.g. testing or development purposes) you should build the sources:
+
+```
+gulp
+```
+
+and build the docker image:
 
 
 ```
