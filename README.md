@@ -54,7 +54,7 @@ Please refer to individual installation instructions of sub-projects for more de
 
 ### Run locally
 
-You can start the whole stack (Swagger UI and Strorage incl. PostgreSQL DB) locally be building the respective sub-projects and running:
+You can start the whole stack (Swagger UI and Strorage incl. PostgreSQL DB) locally by building the respective sub-projects and running:
 ```
 docker-compose up --build
 ```
