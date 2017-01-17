@@ -59,7 +59,7 @@ You can start the whole stack (Swagger UI and Strorage incl. PostgreSQL DB) loca
 docker-compose up --build
 ```
 
-Swagger UI is accessible on <http://localhost:8080>. You can also access Storage API <http://localhost:8010/apps> and PostgreSQL database <http://localhost:54321/apis> directly.
+Swagger UI is accessible on <http://localhost:8080>. You can also access Storage API <http://localhost:8010/apps> and PostgreSQL database <postgresql://localhost:54321/apis> directly.
 
 If your docker host is not your localhost (e.g. MacOS), replace localhost in the link with the docker machine IP address:
 ```bash
