@@ -41,7 +41,7 @@ gulp.task('clean', function() {
 /**
  * Starts node server
  */
-gulp.task('server', function() {
+gulp.task('server', ['set-env-vars'], function() {
   if (node) node.kill()
   node = spawn('node', ['server.js'], {stdio: 'inherit', cwd: 'www'})
   node.on('close', function (code) {
@@ -50,6 +50,26 @@ gulp.task('server', function() {
     }
   });
 })
+
+/**
+ * Sets default env variables
+ */
+gulp.task('set-env-vars', function() {
+  process.env.SUIENV_STORAGE_BASE_URL = 'http://localhost:8010';
+  return;
+});
+
+/**
+ * Sets OAuth environment variables
+ */
+gulp.task('set-oauth-env-vars', function() {
+  process.env.SUIENV_OAUTH_AUTH_URL = 'http://localhost:5002/auth';
+  process.env.SUIENV_OAUTH_CLIENT_ID = 'swagger';
+  process.env.SUIENV_OAUTH_REALM = 'realm';
+  process.env.SUIENV_OAUTH_REDIRECT_URL = 'http://localhost:8080';
+  process.env.SUIENV_OAUTH_SCOPES = 'uid';
+  return;
+});
 
 /**
  * Processes Handlebars templates
@@ -183,3 +203,4 @@ function log(error) {
 
 gulp.task('default', ['dist', 'copy']);
 gulp.task('serve', ['watch', 'server']);
+gulp.task('serve-with-oauth', ['set-oauth-env-vars', 'watch', 'server']);
