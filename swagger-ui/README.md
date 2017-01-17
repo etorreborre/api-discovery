@@ -16,7 +16,7 @@ docker build -t swagger-ui:1.0-SNAPSHOT .
 Now, you can start the docker image and access the frontend <http://localhost:8080>.
 
 ```
-docker run -it -p 8080:8080 swagger-ui:1.0-SNAPSHOT
+docker run -it -p 8080:8080 -e SUIENV_STORAGE_BASE_URL=${storage_base_url} swagger-ui:1.0-SNAPSHOT
 ```
 
 ### Run with OAuth 2.0
