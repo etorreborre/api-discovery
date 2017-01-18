@@ -8,4 +8,4 @@ docker run \
     -e SUIENV_OAUTH_REDIRECT_URL=http://192.168.59.103:8080 \
     -e SUIENV_OAUTH_SCOPES=uid \
     -u 998 \
-    image
+    $1

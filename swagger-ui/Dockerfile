@@ -4,10 +4,7 @@ FROM registry.opensource.zalan.do/stups/node:0.12-20
 ADD /scm-source.json /scm-source.json
 
 # copy resources
-COPY ./dist/ /www/dist/
-COPY ./dist/index.html /www/
-COPY ./server/server.js /www/
-COPY ./server/package.json /www/
+COPY ./www/ /www/
 
 # install dependencies
 

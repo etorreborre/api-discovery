@@ -25,15 +25,50 @@ var banner = ['/**',
   ' * @license <%= pkg.license %>',
   ' */',
   ''].join('\n');
+var node;
+var spawn = require('child_process').spawn;
 
 /**
- * Clean ups ./dist folder
+ * Clean ups ./www folder
  */
 gulp.task('clean', function() {
   return gulp
-    .src('./dist', {read: false})
+    .src('./www', {read: false})
     .pipe(clean({force: true}))
     .on('error', log);
+});
+
+/**
+ * Starts node server
+ */
+gulp.task('server', ['set-env-vars'], function() {
+  if (node) node.kill()
+  node = spawn('node', ['server.js'], {stdio: 'inherit', cwd: 'www'})
+  node.on('close', function (code) {
+    if (code === 8) {
+      gulp.log('Error detected, waiting for changes...');
+    }
+  });
+})
+
+/**
+ * Sets default env variables
+ */
+gulp.task('set-env-vars', function() {
+  process.env.SUIENV_STORAGE_BASE_URL = 'http://localhost:8010';
+  return;
+});
+
+/**
+ * Sets OAuth environment variables
+ */
+gulp.task('set-oauth-env-vars', function() {
+  process.env.SUIENV_OAUTH_AUTH_URL = 'http://localhost:5002/auth';
+  process.env.SUIENV_OAUTH_CLIENT_ID = 'swagger';
+  process.env.SUIENV_OAUTH_REALM = 'realm';
+  process.env.SUIENV_OAUTH_REDIRECT_URL = 'http://localhost:8080';
+  process.env.SUIENV_OAUTH_SCOPES = 'uid';
+  return;
 });
 
 /**
@@ -76,12 +111,12 @@ gulp.task('dist', ['clean','lint'], function() {
     .pipe(concat('swagger-ui.js'))
     .pipe(wrap('(function(){<%= contents %>}).call(this);'))
     .pipe(header(banner, { pkg: pkg } ))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./www/dist'))
     .pipe(uglify())
     .on('error', log)
     .pipe(rename({extname: '.min.js'}))
     .on('error', log)
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./www/dist'))
     .pipe(connect.reload());
 });
 
@@ -120,21 +155,33 @@ gulp.task('copy', ['less'], function() {
   // copy JavaScript files inside lib folder
   gulp
     .src(['./lib/**/*.{js,map}'])
-    .pipe(gulp.dest('./dist/lib'))
+    .pipe(gulp.dest('./www/dist/lib'))
     .on('error', log);
 
   // copy all files inside html folder
   gulp
     .src(['./src/main/html/**/*'])
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./www/dist'))
     .on('error', log);
+
+  // copy all server side files
+  gulp
+    .src(['./server/**'])
+    .pipe(gulp.dest('./www'))
+    .on('error', log)
+
+  // copy static html files
+  gulp
+    .src(['./src/main/html/*.html'])
+    .pipe(gulp.dest('./www'))
+    .on('error', log)
 });
 
 /**
  * Watch for changes and recompile
  */
 gulp.task('watch', function() {
-  return watch(['./src/**/*.{js,less,handlebars}'], function() {
+  return watch(['./src/**/*.{js,less,handlebars}', 'server/**/*.js'], function() {
     gulp.start('default');
   });
 });
@@ -155,4 +202,5 @@ function log(error) {
 
 
 gulp.task('default', ['dist', 'copy']);
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['watch', 'server']);
+gulp.task('serve-with-oauth', ['set-oauth-env-vars', 'watch', 'server']);
