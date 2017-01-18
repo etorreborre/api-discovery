@@ -1,6 +1,7 @@
 # Swagger UI
 
-This is Swagger UI application. It is currently used to browse the API definitions. It relies on the API definitions which are persisted in the Storage service.
+This is Swagger UI application. It is currently used to browse all crawled API definitions.
+It relies on the API definitions which are persisted in the [storage](../storage) service.
 
 
 ## Build and run locally
@@ -21,9 +22,8 @@ gulp serve
 
 or, with OAuth integration:
 
-
 ```
 gulp serve serve-with-oauth
 ```
 
-Now, you cann access the frontend <http://localhost:8080>.
+Now, you can access the frontend <http://localhost:8080>.
