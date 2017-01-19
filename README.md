@@ -34,6 +34,9 @@ For that, it first crawls `/.well-known/schema-discovery` which should respond w
 After the crawler loaded the definition it tries to store it in the [storage](storage/) system. An adapted
 [Swagger UI](swagger-ui/) displays all API definitions which were stored in this storage system.
 
+Currently the `/.well-known/schema-discovery` endpoint and the endpoint provided by `schema_url` are requested
+with OAuth `uid` token by the crawler. By this services can secure their API definition if necessary or just ignore
+the `uid` token.
 
 ### Features
 
