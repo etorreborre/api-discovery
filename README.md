@@ -6,7 +6,7 @@
 
 In Microservice architectures many services and APIs are built. Over time it becomes quite hard for each developer to keep track which APIs exist and what services an API offers. As a solution for this problem, this API Discovery solution offers easy to implement [auto discovery](https://github.com/zalando-incubator/api-discovery/tree/master/crawler) of available APIs and gathers all found API specifications in one central [storage](https://github.com/zalando-incubator/api-discovery/tree/master/storage) system. It's built upon OpenAPI specifications (formerly Swagger). It also comes with an adapted [Swagger UI](swagger-ui/) to display all APIs.
 
-**IMPORTANT** Currently the crawler is still depending on an application registry, called [Kio](https://github.com/zalando-stups/kio). From this application registry all services, which potentially have an API definition, are crawled. In near future, this will change and retrieving of crawlable services will be configurable. By this you can adapt API Disocvery to your needs. Please contribute if you have requirements or ideas to [this issue](https://github.com/zalando-incubator/api-discovery/issues/2).
+**IMPORTANT** Currently the crawler is still depending on an application registry, called [Kio](https://github.com/zalando-stups/kio). From this application registry all services, which potentially have an API definition, are crawled. In near future, this will change and retrieving of crawlable services will be configurable. By this you can adapt API Discovery to your needs. Please contribute if you have requirements or ideas to [this issue](https://github.com/zalando-incubator/api-discovery/issues/2).
 
 
 ### Architecture Overview
@@ -57,7 +57,7 @@ Please refer to individual installation instructions of sub-projects for more de
 
 ### Run locally
 
-You can start the whole stack (Swagger UI and Strorage incl. PostgreSQL DB) locally by building the respective sub-projects and running:
+You can start the whole stack (Swagger UI and Storage incl. PostgreSQL DB) locally by building the respective sub-projects and running:
 ```
 docker-compose up --build
 ```
